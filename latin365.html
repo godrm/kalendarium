@@ -1,0 +1,1335 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lingua Latina 365</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/bg.webp" media="(min-width: 641px)">
+<link rel="preload" as="image" href="img/bg-mobile.webp" media="(max-width: 640px)">
+<style>
+:root{
+  --ink:#3a2312; --ink-soft:#6b4a2c; --parch:#f1e0b8; --parch-2:#e2c890; --parch-edge:#b98f4c;
+  --gold:#d6a84a; --gold-hi:#f3d488; --wood:#2a1a10; --wood-2:#3d2716;
+  --glow:#ffcf73; --ok:#5f9a3a; --ok-bg:#e3efc9; --no:#a8342a; --no-bg:#f4d6cc;
+  --text:#f3e6c8; --text-dim:#c9b48e;
+  --serif-la:"EB Garamond", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --serif-ko:"Noto Serif KR", "Apple SD Gothic Neo", "Nanum Myeongjo", serif;
+  --display:"Cinzel", "Trajan Pro", Georgia, serif;
+  --dlg-h:220px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  background:#120d0a; color:var(--text); font-family:var(--serif-ko);
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+button{font:inherit;color:inherit;cursor:pointer}
+
+/* ---------- 배경: 대성당 도서관 ---------- */
+/* 실제 이미지가 오기 전에는 32px 미리보기(인라인)가 흐릿하게 보인다 */
+.bgimg{position:fixed;inset:0;z-index:-4;background-color:#120d0a;
+  background-image:url("img/bg.webp"),url("data:image/webp;base64,UklGRoACAABXRUJQVlA4WAoAAAAgAAAAHwAAEQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggkgAAAJAEAJ0BKiAAEgA+0VajS6gkoyGwCAEAGgljAK4cHon++U0ZfG2G8elhoUktCAD+7xj1uUXT6vO2lX6vBfc48eFvvaUWTZzuPJ9QmcQAlT+FdJoN07KfATxPb896x0Jp+kc+24fDeC6o8SAzjNgDwq92DGFVO/jp+M2w0hF0KIsRo8zdrsMN0JPrCdE8o/LVAAAA");
+  background-size:cover;background-position:center 35%;background-repeat:no-repeat}
+.candlelight{position:fixed;inset:0;z-index:-3;pointer-events:none;mix-blend-mode:screen;
+  background:radial-gradient(ellipse 22% 40% at 4% 30%,rgba(255,170,70,.16),transparent 70%),
+             radial-gradient(ellipse 22% 40% at 96% 45%,rgba(255,170,70,.14),transparent 70%);
+  animation:cglow 2.3s ease-in-out infinite alternate}
+.vignette{position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 30%, rgba(255,200,120,.10), transparent 70%),
+    radial-gradient(ellipse at 50% 45%, transparent 30%, rgba(5,3,2,.8) 100%),
+    linear-gradient(rgba(10,6,3,.18),rgba(10,6,3,.18) 60%,rgba(10,6,3,.55));}
+.motes{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.motes i{position:absolute;width:3px;height:3px;border-radius:50%;background:#ffe6a8;opacity:0;
+  filter:blur(.4px);animation:mote 14s linear infinite}
+@keyframes mote{0%{transform:translate(0,0);opacity:0}15%{opacity:.7}85%{opacity:.5}100%{transform:translate(40px,-260px);opacity:0}}
+@keyframes cglow{0%{opacity:.6}40%{opacity:1}70%{opacity:.75}100%{opacity:.9}}
+
+/* ---------- 레이아웃 ---------- */
+.app{max-width:780px;margin:0 auto;padding:14px 16px calc(var(--dlg-h) + 28px)}
+.top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.brand{font-family:var(--display);font-weight:700;letter-spacing:.12em;font-size:1.05rem;color:var(--gold-hi);
+  text-shadow:0 0 12px rgba(255,190,90,.45),0 2px 0 #000;margin-right:auto;white-space:nowrap}
+.brand span{color:var(--text);opacity:.85}
+.stats{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:rgba(20,12,7,.72);border:1px solid rgba(214,168,74,.45);border-radius:999px;
+  padding:4px 10px;font-size:.8rem;color:var(--text);white-space:nowrap;backdrop-filter:blur(2px)}
+.chip b{color:var(--gold-hi);font-weight:700}
+.actions{display:flex;gap:6px}
+.iconbtn{width:38px;height:38px;border-radius:50%;border:1px solid rgba(214,168,74,.6);
+  background:radial-gradient(circle at 35% 30%,#4a3020,#1d120a);font-size:1.05rem;
+  box-shadow:0 2px 8px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,220,150,.25)}
+.iconbtn:hover{border-color:var(--gold-hi)}
+
+.tabs{display:flex;gap:8px;margin:14px 0 10px}
+.tab{flex:1;min-width:0;padding:9px 6px;border-radius:10px 10px 4px 4px;border:1px solid rgba(214,168,74,.45);
+  background:linear-gradient(#3a2616,#22150c);color:var(--text-dim);font-size:.85rem;line-height:1.25;
+  box-shadow:inset 0 1px 0 rgba(255,220,150,.15)}
+.tab small{display:block;font-family:var(--display);font-size:.68rem;letter-spacing:.06em;opacity:.8}
+.tab.active{background:linear-gradient(#f3e2ba,#dcc08a);color:var(--ink);border-color:var(--gold);
+  box-shadow:0 0 14px rgba(255,200,110,.35)}
+.tab:disabled{opacity:.42;cursor:not-allowed}
+.tab .done{color:var(--ok)}
+.tab.active .done{color:#3f7a1f}
+
+.progress{height:10px;border-radius:999px;background:rgba(0,0,0,.55);border:1px solid rgba(214,168,74,.35);overflow:hidden;margin-bottom:12px}
+.progress i{display:block;height:100%;width:0;border-radius:999px;
+  background:linear-gradient(90deg,#9c6b1f,var(--gold),var(--gold-hi));box-shadow:0 0 10px rgba(255,200,110,.6);transition:width .45s ease}
+
+/* ---------- 양피지 카드 ---------- */
+.card{position:relative;color:var(--ink);padding:26px 24px 22px;border-radius:6px;min-height:260px;
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .3  0 0 0 0 .12  0 0 0 .22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    radial-gradient(ellipse at 50% 40%, #f7e9c6 0%, var(--parch) 45%, var(--parch-2) 85%, #c9a465 100%);
+  border:1px solid var(--parch-edge);
+  box-shadow:inset 0 0 50px rgba(120,75,25,.45), inset 0 0 0 6px rgba(255,245,220,.25), 0 14px 36px rgba(0,0,0,.7), 0 0 40px rgba(255,190,100,.12);
+  animation:unroll .45s ease}
+.card::before{content:"";position:absolute;inset:8px;border:1px solid rgba(160,115,45,.55);border-radius:3px;pointer-events:none;
+  box-shadow:inset 0 0 0 3px rgba(214,168,74,.18)}
+@keyframes unroll{from{opacity:0;transform:translateY(8px) scaleY(.96)}to{opacity:1;transform:none}}
+.kicker{font-family:var(--display);font-size:.72rem;letter-spacing:.16em;color:#8a5a22;text-transform:uppercase;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.latin{font-family:var(--serif-la);font-weight:600;font-size:clamp(1.9rem,6vw,2.9rem);line-height:1.15;margin:18px 0 8px;color:#2a160a;word-break:keep-all;overflow-wrap:anywhere}
+.latin .initial{font-family:var(--display);font-weight:700;color:#8e1f17;font-size:1.45em;line-height:.8;
+  text-shadow:0 1px 0 #f3d488, 0 0 1px #5a1009;margin-right:.02em}
+.meaning{font-size:1.15rem;color:var(--ink-soft);margin:0 0 6px}
+.note{margin-top:14px;padding:10px 12px;border-left:3px solid #8e1f17;background:rgba(142,31,23,.07);font-size:.92rem;color:#4b2e18;border-radius:0 4px 4px 0}
+.prompt{font-size:.95rem;color:#7a5530;margin-top:4px}
+.qbig{font-size:clamp(1.5rem,5vw,2.2rem);margin:16px 0 4px;font-weight:600;color:#2a160a;word-break:keep-all;overflow-wrap:anywhere}
+.qbig.la{font-family:var(--serif-la)}
+.speak{margin-left:6px;vertical-align:middle;width:40px;height:40px;border-radius:50%;border:1px solid var(--parch-edge);
+  background:radial-gradient(circle at 35% 30%,#fff6dd,#e3c98f);font-size:1.1rem;box-shadow:0 2px 4px rgba(90,50,10,.35)}
+.banner{margin-top:16px;padding:10px 14px;border-radius:6px;font-weight:600;animation:unroll .3s ease}
+.banner.ok{background:var(--ok-bg);color:#2f5a14;border:1px solid #9cc070}
+.banner.no{background:var(--no-bg);color:#7a1f16;border:1px solid #d99a8a}
+.banner .la{font-family:var(--serif-la);font-size:1.1em}
+
+/* 단어 배열 */
+.answer{min-height:58px;margin:18px 0 10px;padding:8px;border-bottom:2px solid rgba(110,70,30,.45);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.answer:empty::before{content:"단어를 눌러 이곳에 옮겨 적으세요";color:#9a7a52;font-size:.9rem}
+.bank{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding-top:6px}
+.tile{font-family:var(--serif-la);font-size:1.2rem;padding:8px 14px;border-radius:8px;color:#2a160a;
+  background:linear-gradient(#fff8e6,#efdcb0);border:1px solid #b58c4c;box-shadow:0 3px 0 #9c7440,0 4px 8px rgba(60,30,5,.25);transition:transform .12s}
+.tile:active{transform:translateY(2px);box-shadow:0 1px 0 #9c7440}
+.tile.used{visibility:hidden}
+.tile:disabled{cursor:default}
+.typein{width:100%;margin:18px 0 6px;padding:12px 14px;font-family:var(--serif-la);font-size:1.4rem;color:#2a160a;
+  background:rgba(255,250,235,.7);border:1px solid #b58c4c;border-radius:8px;outline:none}
+.typein:focus{border-color:#8e1f17;box-shadow:0 0 0 3px rgba(142,31,23,.15)}
+
+/* 완료 카드 */
+.done-title{font-family:var(--display);font-size:clamp(1.6rem,6vw,2.3rem);color:#8e1f17;text-align:center;margin:8px 0 2px;letter-spacing:.06em}
+.done-sub{text-align:center;color:var(--ink-soft);margin:0 0 14px}
+.statrow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0 16px}
+.stat{min-width:96px;text-align:center;padding:8px 10px;border-radius:8px;background:rgba(255,250,235,.55);border:1px solid rgba(160,115,45,.5)}
+.stat b{display:block;font-family:var(--display);font-size:1.4rem;color:#6b3a10}
+.stat span{font-size:.78rem;color:#7a5530}
+.recap{text-align:center}
+.recap .latin{font-size:clamp(1.5rem,5vw,2.1rem);margin:6px 0 2px}
+.review h4{font-family:var(--display);font-size:.78rem;letter-spacing:.14em;color:#8a5a22;margin:18px 0 8px;text-transform:uppercase}
+.minis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.mini{padding:10px 12px;border-radius:6px;background:rgba(255,250,235,.5);border:1px dashed rgba(140,95,35,.55)}
+.mini .la{font-family:var(--serif-la);font-weight:600;font-size:1.1rem}
+.mini .ko{font-size:.88rem;color:var(--ink-soft)}
+.mini small{font-family:var(--display);font-size:.66rem;color:#9a7040;letter-spacing:.08em}
+.sparks{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.sparks i{position:absolute;top:30%;width:6px;height:6px;background:var(--gold-hi);border-radius:1px;transform:rotate(45deg);
+  box-shadow:0 0 8px #ffd27a;opacity:0;animation:spark 1.6s ease-out forwards}
+@keyframes spark{0%{opacity:1;transform:translate(0,0) rotate(45deg) scale(.6)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(225deg) scale(1)}}
+
+/* LLM 패널 */
+.llm{margin-top:18px;padding:14px 14px 10px;border-radius:6px;background:rgba(255,252,240,.6);border:1px solid rgba(160,115,45,.55);animation:unroll .35s ease}
+.llm h4{margin:0 0 10px;font-family:var(--display);font-size:.8rem;letter-spacing:.14em;color:#8a5a22;text-transform:uppercase}
+.llm .row{margin:0 0 10px}
+.llm .lbl{font-size:.75rem;color:#8a5a22;font-weight:700;letter-spacing:.04em}
+.llm .val{font-size:1rem}
+.llm ul{margin:4px 0 0;padding-left:18px}
+.llm li{margin:2px 0}
+.llm .em{font-family:var(--serif-la);font-style:italic;font-weight:600}
+.llm .tip{padding:8px 10px;background:rgba(214,168,74,.18);border-radius:4px}
+.llm pre{white-space:pre-wrap;font-family:inherit;font-size:.92rem;margin:0}
+.llm .err{color:#7a1f16;font-size:.92rem}
+.quill{display:inline-block;animation:quill 1s ease-in-out infinite}
+@keyframes quill{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(10deg) translateX(3px)}}
+
+/* ---------- NPC 대화창 ---------- */
+.dialog{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);width:min(980px,calc(100% - 20px));z-index:20;
+  display:grid;grid-template-columns:208px 1fr;gap:0;align-items:end}
+.portrait{position:relative;width:208px;height:208px;margin-bottom:10px;z-index:2;border-radius:8px;overflow:hidden;
+  border:3px solid var(--gold);box-shadow:0 0 0 2px #2a170b,0 0 0 4px rgba(214,168,74,.55),0 10px 30px rgba(0,0,0,.8),0 0 30px rgba(255,180,80,.25);
+  background:#0d0805}
+.portrait svg{display:block;width:100%;height:100%}
+.dbody{position:relative;margin-left:-14px;padding:16px 20px 14px 30px;min-height:132px;border-radius:10px;cursor:pointer;
+  background:linear-gradient(180deg,rgba(38,24,14,.94),rgba(18,11,6,.96));
+  border:2px solid var(--gold);box-shadow:0 0 0 2px #1a0e06,0 0 0 4px rgba(214,168,74,.35),0 12px 34px rgba(0,0,0,.85),inset 0 0 30px rgba(0,0,0,.6)}
+.dbody::before,.dbody::after{content:"✦";position:absolute;color:var(--gold);font-size:.8rem;top:4px}
+.dbody::before{left:10px}.dbody::after{right:10px}
+.name{position:absolute;top:-15px;left:28px;font-family:var(--display);font-weight:700;font-size:.82rem;letter-spacing:.12em;
+  padding:3px 12px;border-radius:4px;color:#2a160a;background:linear-gradient(#f6dc96,#c99a3e);border:1px solid #7a5520;box-shadow:0 2px 6px rgba(0,0,0,.6)}
+.dtext{margin:6px 0 0;font-size:1.04rem;line-height:1.65;min-height:3.3em;color:#f6ead0;text-shadow:0 1px 0 #000;word-break:keep-all;overflow-wrap:anywhere}
+.dnext{position:absolute;right:16px;bottom:8px;color:var(--gold-hi);font-size:.85rem;animation:bob .8s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+.choices{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.choices:empty{display:none}
+.choice{display:flex;align-items:center;gap:10px;text-align:left;padding:9px 12px;border-radius:6px;
+  background:linear-gradient(90deg,rgba(214,168,74,.16),rgba(214,168,74,.05));border:1px solid rgba(214,168,74,.5);color:#f6ead0;font-size:.98rem;
+  transition:background .15s,border-color .15s,transform .1s}
+.choice:hover:not(:disabled){background:linear-gradient(90deg,rgba(214,168,74,.32),rgba(214,168,74,.1));border-color:var(--gold-hi);transform:translateX(3px)}
+.choice .k{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:.72rem;
+  background:var(--gold);color:#2a160a;font-weight:700}
+.choice.la .t{font-family:var(--serif-la);font-size:1.08rem}
+.choice:disabled{cursor:default;opacity:.55}
+.choice.correct{opacity:1;background:linear-gradient(90deg,rgba(110,170,70,.45),rgba(110,170,70,.12));border-color:#a7d47a}
+.choice.correct .k{background:#9fd06a}
+.choice.wrong{opacity:1;background:linear-gradient(90deg,rgba(190,60,45,.45),rgba(190,60,45,.12));border-color:#e48b7c}
+.choice.wrong .k{background:#e48b7c}
+
+/* 수도사 초상 */
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transform-origin:50% 40%;animation:breathe 5.2s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.015) translateY(-.6px)}}
+.portrait.talking img{animation:talk .36s ease-in-out infinite alternate}
+@keyframes talk{from{transform:scale(1) translateY(0)}to{transform:scale(1.008) translateY(.7px) rotate(.25deg)}}
+.portrait.nod img{animation:nod .7s ease}
+@keyframes nod{0%,100%{transform:none}35%{transform:translateY(2.5px) rotate(1deg)}65%{transform:translateY(-.5px)}}
+.portrait.swap img{animation:swapin .3s ease}
+@keyframes swapin{from{opacity:.35;filter:brightness(1.3)}to{opacity:1;filter:none}}
+.pflicker{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;
+  background:radial-gradient(circle at 8% 40%,rgba(255,170,70,.28),transparent 60%),radial-gradient(ellipse at 50% 50%,transparent 55%,rgba(0,0,0,.45) 100%);
+  animation:mflick 2.1s ease-in-out infinite alternate}
+@keyframes mflick{0%{opacity:.7}25%{opacity:1}55%{opacity:.8}80%{opacity:.95}100%{opacity:.85}}
+
+/* ---------- 모달 ---------- */
+.modal{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:16px;background:rgba(5,3,2,.72);backdrop-filter:blur(3px)}
+.modal.open{display:grid}
+.modal .card{width:min(560px,100%);max-height:calc(100vh - 32px);overflow:auto}
+.modal h3{font-family:var(--display);letter-spacing:.1em;margin:0 0 12px;color:#6b2a10}
+.modal label{display:block;font-size:.82rem;font-weight:700;color:#7a5530;margin:12px 0 4px}
+.field{display:flex;gap:6px}
+.field input{flex:1;min-width:0;padding:10px 12px;border-radius:6px;border:1px solid #b58c4c;background:rgba(255,250,235,.8);font-size:.95rem;color:#2a160a}
+.btn{padding:9px 14px;border-radius:6px;border:1px solid #7a5520;background:linear-gradient(#f3d488,#c99a3e);color:#2a160a;font-weight:700;font-size:.9rem}
+.btn.ghost{background:rgba(255,250,235,.6);border-color:#b58c4c}
+.btn.danger{background:linear-gradient(#e7a596,#b8513f);color:#fff;border-color:#7a2a1c}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.help{font-size:.8rem;color:#7a5530;margin:6px 0 0;line-height:1.5}
+.testout{font-size:.88rem;margin-top:10px;min-height:1.2em;word-break:break-all}
+.testout.ok{color:#2f5a14}.testout.no{color:#7a1f16}
+.close{position:absolute;top:10px;right:12px;border:0;background:none;font-size:1.4rem;color:#7a5530;z-index:2}
+.divider{height:1px;background:rgba(160,115,45,.45);margin:18px 0 6px}
+.list{list-style:none;margin:0;padding:0}
+.list li{display:grid;grid-template-columns:56px 1fr auto;gap:8px;align-items:baseline;padding:7px 0;border-bottom:1px dashed rgba(140,95,35,.4)}
+.list .d{font-family:var(--display);font-size:.72rem;color:#9a7040}
+.list .la{font-family:var(--serif-la);font-weight:600;font-size:1.05rem}
+.list .ko{display:block;font-size:.85rem;color:var(--ink-soft)}
+.list .ck{color:var(--ok)}
+
+/* ---------- 모바일 ---------- */
+@media (max-width:640px){
+  .bgimg{background-image:url("img/bg-mobile.webp"),url("data:image/webp;base64,UklGRoACAABXRUJQVlA4WAoAAAAgAAAAHwAAEQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggkgAAAJAEAJ0BKiAAEgA+0VajS6gkoyGwCAEAGgljAK4cHon++U0ZfG2G8elhoUktCAD+7xj1uUXT6vO2lX6vBfc48eFvvaUWTZzuPJ9QmcQAlT+FdJoN07KfATxPb896x0Jp+kc+24fDeC6o8SAzjNgDwq92DGFVO/jp+M2w0hF0KIsRo8zdrsMN0JPrCdE8o/LVAAAA");background-position:center top}
+  .app{padding:10px 12px calc(var(--dlg-h) + 20px)}
+  .brand{font-size:.92rem}
+  .chip{font-size:.72rem;padding:3px 8px}
+  .card{padding:22px 16px 18px}
+  .dialog{grid-template-columns:1fr;bottom:8px;width:calc(100% - 16px)}
+  .portrait{position:absolute;left:6px;top:-100px;width:112px;height:112px;margin:0;border-width:2px}
+  .dbody{margin-left:0;padding:14px 14px 12px 14px;min-height:110px}
+  .name{left:126px}
+  .dtext{font-size:.96rem;margin-top:10px}
+  .choice{padding:8px 10px;font-size:.92rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- 배경: 대성당 도서관 -->
+<div class="bgimg" aria-hidden="true"></div>
+<div class="candlelight" aria-hidden="true"></div>
+<div class="vignette"></div>
+<div class="motes" id="motes"></div>
+
+<div class="app">
+  <header class="top">
+    <div class="brand">LINGUA LATINA <span>· 365</span></div>
+    <div class="stats">
+      <span class="chip" id="streakChip" title="연속 학습">🕯️ <b>0</b>일 연속</span>
+      <span class="chip" id="dayChip">Dies 1 / 365</span>
+      <span class="chip" id="studyChip">학습 1일째 · 실제 학습 0일</span>
+    </div>
+    <div class="actions">
+      <button class="iconbtn" id="btnList" title="지금까지 배운 표현" aria-label="지금까지 배운 표현">📜</button>
+      <button class="iconbtn" id="btnKey" title="API 키 설정" aria-label="API 키 설정">🔑</button>
+    </div>
+  </header>
+  <nav class="tabs" id="tabs" aria-label="학습일 선택"></nav>
+  <main>
+    <div class="progress" aria-hidden="true"><i id="prog"></i></div>
+    <section class="card" id="card" aria-live="polite"></section>
+  </main>
+</div>
+
+<!-- NPC 대화창 -->
+<div class="dialog" id="dialog">
+  <div class="portrait" id="portrait">
+    <img id="monkImg" alt="프라테르 안셀무스 수사">
+    <div class="pflicker" aria-hidden="true"></div>
+  </div>
+  <div class="dbody" id="dbody">
+    <div class="name">Frater Anselmus</div>
+    <p class="dtext" id="dtext"></p>
+    <span class="dnext" id="dnext" hidden>▼</span>
+    <div class="choices" id="choices"></div>
+  </div>
+</div>
+
+<!-- 키 설정 -->
+<div class="modal" id="keyModal" role="dialog" aria-modal="true" aria-labelledby="keyTitle">
+  <div class="card">
+    <button class="close" data-close aria-label="닫기">×</button>
+    <h3 id="keyTitle">🔑 서고의 열쇠</h3>
+    <label for="inKey">API Key</label>
+    <div class="field">
+      <input id="inKey" type="password" autocomplete="off" spellcheck="false" placeholder="게이트웨이 API 키">
+      <button class="btn ghost" id="btnEye" type="button" aria-label="키 보기">👁</button>
+    </div>
+    <label for="inModel">모델</label>
+    <div class="field"><input id="inModel" type="text" spellcheck="false" placeholder="claude-sonnet-5"></div>
+    <p class="help">키와 모델은 이 브라우저의 로컬 저장소에만 보관되며, 요청할 때 <b>api.baze.co</b> 게이트웨이로만 전송됩니다.</p>
+    <div class="btnrow">
+      <button class="btn" id="btnSaveKey">저장</button>
+      <button class="btn ghost" id="btnTestKey">연결 테스트</button>
+      <button class="btn ghost" id="btnDelKey">키 삭제</button>
+    </div>
+    <div class="testout" id="testOut"></div>
+    <div class="divider"></div>
+    <h3 style="font-size:.95rem">📅 학습 기록</h3>
+    <p class="help" id="recordInfo"></p>
+    <label for="inStart">시작일 (1일차)</label>
+    <div class="field"><input id="inStart" type="date"><button class="btn ghost" id="btnStart">변경</button></div>
+    <div class="btnrow"><button class="btn danger" id="btnReset">진행 초기화</button></div>
+    <p class="help">진행 초기화는 시작일·학습 기록·연속 기록을 지우고 오늘을 1일차로 다시 시작합니다. API 키는 유지됩니다.</p>
+  </div>
+</div>
+
+<!-- 배운 표현 목록 -->
+<div class="modal" id="listModal" role="dialog" aria-modal="true" aria-labelledby="listTitle">
+  <div class="card">
+    <button class="close" data-close aria-label="닫기">×</button>
+    <h3 id="listTitle">📜 지금까지 펼친 구절</h3>
+    <ul class="list" id="list"></ul>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ================= 데이터 ================= */
+const RAW = `Salve!|안녕! (한 사람에게)
+Salvete!|안녕하세요! (여러 사람에게)
+Vale!|잘 가! / 안녕히!
+Valete!|(여러분) 안녕히!
+Ave!|안녕! / 만세!
+Bonum mane!|좋은 아침!
+Bona nox!|잘 자!
+Quid agis?|어떻게 지내?
+Bene.|잘 지내.
+Optime!|아주 좋아!
+Male.|별로야.
+Et tu?|너는?
+Gratias tibi.|고마워.
+Gratias ago.|감사합니다.
+Libenter!|기꺼이! (천만에)
+Ita vero.|응, 그래.
+Minime.|전혀 아니야.
+Non.|아니.
+Fortasse.|아마도.
+Certe!|물론이지!
+Quaeso.|부탁해. / 제발.
+Ignosce mihi.|미안해. (용서해 줘)
+Nihil est.|괜찮아. (별일 아니야)
+Quid novi?|새로운 일 있어?
+Nihil novi.|새로운 거 없어.
+Cura ut valeas.|몸 건강히 지내.
+Bene sit tibi!|잘 되길 바라!
+Euge!|잘했어!
+Mox.|곧.
+Iterum.|다시.
+Ad crastinum!|내일 봐!
+Ego sum.|나야.
+Quis es?|너는 누구니?
+Tu es amicus.|너는 친구야.
+Quod nomen tibi est?|이름이 뭐니?
+Nomen mihi est Marcus.|내 이름은 마르쿠스야.
+Unde es?|어디 출신이야?
+Sum ex Corea.|나는 한국에서 왔어.
+Coreanus sum.|나는 한국 사람이야. (남)
+Discipulus sum.|나는 학생이야.
+Magister est.|그는 선생님이야.
+Amicus meus est.|그는 내 친구야.
+Amica mea est.|그녀는 내 친구야.
+Laetus sum.|나는 기뻐.
+Fessus sum.|나는 피곤해.
+Esurio.|배고파.
+Sitio.|목말라.
+Hic sum.|나 여기 있어.
+Ubi es?|너 어디 있어?
+Domi sum.|나 집에 있어.
+Quot annos natus es?|몇 살이니?
+Viginti annos natus sum.|나는 스무 살이야.
+Latine disco.|나는 라틴어를 배워.
+Loquerisne Latine?|라틴어 할 줄 아니?
+Paulum.|조금.
+Non intellego.|이해가 안 돼.
+Intellego.|이해해.
+Scio.|알아.
+Nescio.|몰라.
+Haec est mater mea.|이분은 우리 어머니야.
+Hic est pater meus.|이분은 우리 아버지야.
+Habeo fratrem.|나는 형제가 있어.
+Habeo sororem.|나는 자매가 있어.
+Familia mea magna est.|우리 가족은 대가족이야.
+Familia mea parva est.|우리 가족은 단출해.
+Puer ludit.|소년이 논다.
+Puella cantat.|소녀가 노래한다.
+Vir bonus est.|그는 좋은 사람이다.
+Femina pulchra est.|그 여자는 아름답다.
+Infans dormit.|아기가 잔다.
+Avus senex est.|할아버지는 연세가 많으시다.
+Avia fabulam narrat.|할머니가 이야기를 들려주신다.
+Filius parvus est.|아들이 어리다.
+Filia ridet.|딸이 웃는다.
+Amo matrem.|나는 어머니를 사랑해.
+Pater laborat.|아버지는 일하신다.
+Fratres sumus.|우리는 형제야.
+Amici sumus.|우리는 친구야.
+Amicus fidelis est.|그는 믿음직한 친구야.
+Hospes venit.|손님이 온다.
+Rex regnat.|왕이 다스린다.
+Regina sapiens est.|여왕은 지혜롭다.
+Medicus aegrotum curat.|의사가 환자를 돌본다.
+Agricola arat.|농부가 밭을 간다.
+Nauta navigat.|선원이 항해한다.
+Miles pugnat.|군인이 싸운다.
+Poeta scribit.|시인이 글을 쓴다.
+Homo sum.|나는 사람이다.
+Vicinus meus benignus est.|내 이웃은 친절하다.
+Familia mea me amat.|우리 가족은 나를 사랑한다.
+Unus, duo, tres.|하나, 둘, 셋.
+Quattuor, quinque, sex.|넷, 다섯, 여섯.
+Septem, octo, novem, decem.|일곱, 여덟, 아홉, 열.
+Centum, mille.|백, 천.
+Quot?|몇 개?
+Quota hora est?|몇 시야?
+Hora prima est.|1시야.
+Hodie, cras, heri.|오늘, 내일, 어제.
+Nunc.|지금.
+Semper.|항상.
+Numquam.|결코 ~ 않는다.
+Saepe.|자주.
+Interdum.|가끔.
+Iam.|이미, 벌써.
+Nondum.|아직 아니야.
+Mane.|아침에.
+Vesperi.|저녁에.
+Nocte.|밤에.
+Dies Lunae.|월요일 (달의 날)
+Dies Martis.|화요일 (마르스의 날)
+Dies Mercurii.|수요일 (메르쿠리우스의 날)
+Dies Iovis.|목요일 (유피테르의 날)
+Dies Veneris.|금요일 (베누스의 날)
+Dies Saturni.|토요일 (사투르누스의 날)
+Dies Solis.|일요일 (태양의 날)
+Ver, aestas, autumnus, hiems.|봄, 여름, 가을, 겨울.
+Felix annus novus!|새해 복 많이 받아!
+Tempus fugit.|시간은 날아간다.
+Carpe diem.|오늘을 붙잡아라.
+Festina lente.|천천히 서둘러라.
+Amo.|나는 사랑한다.
+Video.|나는 본다.
+Audio.|나는 듣는다.
+Edo.|나는 먹는다.
+Bibo aquam.|나는 물을 마신다.
+Dormio.|나는 잔다.
+Surgo.|나는 일어난다.
+Ambulo.|나는 걷는다.
+Curro.|나는 달린다.
+Lego librum.|나는 책을 읽는다.
+Scribo epistulam.|나는 편지를 쓴다.
+Canto.|나는 노래한다.
+Rideo.|나는 웃는다.
+Fleo.|나는 운다.
+Laboro.|나는 일한다.
+Ludo.|나는 논다.
+Venio.|나는 온다.
+Eo.|나는 간다.
+Domum eo.|나는 집에 간다.
+Exspecto te.|너를 기다려.
+Specto caelum.|나는 하늘을 바라본다.
+Habito in urbe.|나는 도시에 산다.
+Cogito.|나는 생각한다.
+Volo.|나는 원한다.
+Nolo.|나는 원하지 않는다.
+Possum.|나는 할 수 있다.
+Non possum.|나는 할 수 없다.
+Do tibi.|너에게 줄게.
+Accipio.|나는 받는다.
+Quaero.|나는 찾는다.
+Inveni!|찾았다!
+Sol lucet.|해가 빛난다.
+Pluit.|비가 온다.
+Ningit.|눈이 온다.
+Ventus flat.|바람이 분다.
+Caelum serenum est.|하늘이 맑다.
+Calor est.|덥다.
+Frigus est.|춥다.
+Luna clara est.|달이 밝다.
+Stellae micant.|별들이 반짝인다.
+Aqua frigida est.|물이 차갑다.
+Flumen fluit.|강이 흐른다.
+Mare magnum est.|바다는 넓다.
+Mons altus est.|산이 높다.
+Silva densa est.|숲이 울창하다.
+Arbor viridis est.|나무가 푸르다.
+Flores bene olent.|꽃 향기가 좋다.
+Rosa rubra est.|장미는 빨갛다.
+Avis volat.|새가 난다.
+Canis latrat.|개가 짖는다.
+Feles dormit.|고양이가 잔다.
+Equus currit.|말이 달린다.
+Piscis natat.|물고기가 헤엄친다.
+Lupus ululat.|늑대가 울부짖는다.
+Leo fortis est.|사자는 강하다.
+Terra rotunda est.|지구는 둥글다.
+Ignis ardet.|불이 탄다.
+Nubes albae sunt.|구름이 하얗다.
+Tonat.|천둥이 친다.
+Natura pulchra est.|자연은 아름답다.
+Post nubila Phoebus.|구름 뒤에는 해가 뜬다.
+Gaudeo.|기뻐.
+Tristis sum.|슬퍼.
+Iratus sum.|화났어.
+Timeo.|무서워.
+Noli timere.|두려워하지 마.
+Spero.|바라고 있어.
+Te amo.|사랑해.
+Te desidero.|보고 싶어.
+Mihi placet.|마음에 들어.
+Non mihi placet.|마음에 안 들어.
+Bene valeo.|건강해.
+Aegrotus sum.|아파.
+Caput mihi dolet.|머리가 아파.
+Otiosus sum.|한가해.
+Occupatus sum.|바빠.
+Paratus sum.|준비됐어.
+Securus sum.|안심이야.
+Mirabile dictu!|말하기도 놀라운 일이야!
+Fortis esto.|용감해져라.
+Tranquillus sum.|나는 차분해.
+Felix sum.|나는 행복해.
+Solus sum.|나는 혼자야.
+Non es solus.|너는 혼자가 아니야.
+Me paenitet.|후회해.
+Taedet me.|지루해.
+Pudet me.|부끄러워.
+Tibi confido.|너를 믿어.
+Bono animo es!|힘내!
+Ridere bonum est.|웃는 건 좋은 일이야.
+Omnia vincit amor.|사랑은 모든 것을 이긴다.
+Cor meum laetum est.|내 마음이 기쁘다.
+Panem edo.|빵을 먹는다.
+Aquam, quaeso.|물 좀 주세요.
+Lac bonum est.|우유는 몸에 좋다.
+Mel dulce est.|꿀은 달다.
+Pomum edo.|사과를 먹는다.
+Cena parata est.|저녁이 준비됐다.
+Bene sapit!|맛있다!
+Esurisne?|배고프니?
+Satis.|충분해.
+Plus, quaeso.|더 주세요.
+Haec est domus mea.|여기가 우리 집이야.
+Ianua aperta est.|문이 열려 있다.
+Fenestra clausa est.|창문이 닫혀 있다.
+Cubiculum meum parvum est.|내 방은 작다.
+Hortus pulcher est.|정원이 아름답다.
+Mensa et sella.|식탁과 의자.
+Lectus mollis est.|침대가 푹신하다.
+Ubi est culina?|부엌이 어디야?
+Urbs magna est.|도시가 크다.
+Via longa est.|길이 멀다.
+Eo ad forum.|광장(시장)에 간다.
+Templum antiquum est.|신전은 오래됐다.
+Schola prope est.|학교가 가깝다.
+Procul est.|멀다.
+Hic et ibi.|여기와 저기.
+Dextra, sinistra.|오른쪽, 왼쪽.
+In oppido habito.|나는 작은 마을에 산다.
+Roma caput mundi.|로마는 세계의 머리.
+Omnes viae Romam ducunt.|모든 길은 로마로 통한다.
+Domum redeo.|집으로 돌아간다.
+Hic manemus.|우리는 여기 머문다.
+Ubi est liber meus?|내 책 어디 있지?
+Lingua Latina.|라틴어.
+Lege!|읽어라!
+Scribe!|써라!
+Audi!|들어라!
+Repete, quaeso.|다시 말해 주세요.
+Lentius, quaeso.|좀 더 천천히 해 주세요.
+Quid significat?|무슨 뜻이야?
+Quomodo dicitur?|어떻게 말해?
+Latine dicitur...|라틴어로는 ~라고 해.
+Rogo.|나는 질문한다.
+Respondeo.|나는 대답한다.
+Recte!|맞아!
+Erravi.|내가 틀렸어.
+Studeo.|나는 공부한다.
+Disce!|배워라!
+Doce me.|가르쳐 줘.
+Magistra docet.|선생님이 가르친다.
+Discipuli discunt.|학생들이 배운다.
+Specta tabulam.|칠판을 봐.
+Da mihi pennam.|펜 좀 줘.
+Memento!|기억해!
+Oblitus sum.|잊어버렸어.
+Facile est.|쉬워.
+Difficile est.|어려워.
+Paulatim.|조금씩.
+Docendo discimus.|가르치면서 배운다.
+Repetitio mater studiorum est.|반복은 공부의 어머니다.
+Scientia potentia est.|아는 것이 힘이다.
+Non scholae sed vitae discimus.|학교가 아니라 삶을 위해 배운다.
+Veni!|이리 와!
+Venite!|(여러분) 오세요!
+I!|가!
+Sede!|앉아!
+Surge!|일어나!
+Tace!|조용히 해!
+Mane!|기다려! (머물러)
+Festina!|서둘러!
+Specta!|봐!
+Ecce!|보라! / 여기 있다!
+Da mihi!|나에게 줘!
+Adiuva me!|도와줘!
+Noli!|하지 마!
+Noli me tangere.|나를 만지지 마.
+Cave canem!|개 조심!
+Cave!|조심해!
+Dic mihi.|말해 줘.
+Quid dicis?|뭐라고?
+Quid est?|뭐야?
+Quid vis?|뭘 원해?
+Cur?|왜?
+Quia...|왜냐하면...
+Quando?|언제?
+Ubi?|어디?
+Quomodo?|어떻게?
+Quis?|누구?
+Ita est.|그렇다.
+Verum est.|사실이야.
+Falsum est.|거짓이야.
+Consentio.|동의해.
+Sic.|그렇게. / 그래.
+Veni, vidi, vici.|왔노라, 보았노라, 이겼노라.
+Cogito, ergo sum.|나는 생각한다, 고로 존재한다.
+Alea iacta est.|주사위는 던져졌다.
+Et tu, Brute?|브루투스, 너마저?
+Errare humanum est.|실수는 인간적인 것이다.
+Dum spiro, spero.|숨 쉬는 한 희망한다.
+Memento mori.|죽음을 기억하라.
+Ars longa, vita brevis.|예술은 길고 인생은 짧다.
+Per aspera ad astra.|고난을 거쳐 별까지.
+Mens sana in corpore sano.|건강한 몸에 건강한 정신.
+Labor omnia vincit.|노력은 모든 것을 이긴다.
+Veritas vos liberabit.|진리가 너희를 자유롭게 하리라.
+In vino veritas.|술 속에 진실이 있다.
+Panem et circenses.|빵과 서커스.
+Nosce te ipsum.|너 자신을 알라.
+Pax vobiscum.|평화가 너희와 함께하기를.
+Sapere aude.|감히 알려고 하라.
+Audentes fortuna iuvat.|행운은 용감한 자를 돕는다.
+Gutta cavat lapidem.|물방울이 바위를 뚫는다.
+Vox populi.|민중의 목소리.
+Nihil sine labore.|노력 없이는 아무것도 없다.
+Ubi amici, ibi opes.|친구가 있는 곳에 재산이 있다.
+Fiat lux.|빛이 있으라.
+Natura non facit saltus.|자연은 비약하지 않는다.
+Similis simili gaudet.|비슷한 것끼리 좋아한다. (유유상종)
+Manus manum lavat.|손이 손을 씻는다. (서로 돕는다)
+Qui tacet, consentire videtur.|침묵은 동의로 보인다.
+Bis dat qui cito dat.|빨리 주는 사람은 두 번 주는 셈이다.
+Amicus certus in re incerta cernitur.|진정한 친구는 어려울 때 알아본다.
+Utile dulci.|유익함에 즐거움을 더하여.
+Ex nihilo nihil fit.|무에서는 아무것도 생기지 않는다.
+Omnia mea mecum porto.|내 모든 것을 나와 함께 지니고 다닌다.
+Non omnia possumus omnes.|우리 모두가 모든 것을 할 수는 없다.
+Vincit qui patitur.|견디는 자가 이긴다.
+Lux et veritas.|빛과 진리.
+Pecunia non olet.|돈에서는 냄새가 나지 않는다.
+Homo homini lupus.|인간은 인간에게 늑대다.
+Tempus edax rerum.|시간은 만물을 먹어 치운다.
+Roma non fuit una die condita.|로마는 하루아침에 세워지지 않았다.
+Senatus Populusque Romanus.|로마의 원로원과 시민. (SPQR)
+Quod erat demonstrandum.|이상 증명 끝. (Q.E.D.)
+Et cetera.|기타 등등. (etc.)
+Exempli gratia.|예를 들어. (e.g.)
+Id est.|즉. (i.e.)
+Ad hoc.|이 목적만을 위해. (임시의)
+Status quo.|현재 상태.
+Persona non grata.|환영받지 못하는 사람.
+Terra incognita.|미지의 땅.
+Alter ego.|또 다른 나.
+Bona fide.|선의로. / 진짜의.
+Post scriptum.|추신. (P.S.)
+Ante meridiem, post meridiem.|오전, 오후. (a.m., p.m.)
+Ad infinitum.|끝없이.
+Annus mirabilis.|기적의 해.
+Gloria in excelsis Deo.|높은 곳에서는 하느님께 영광.
+Nunc aut numquam.|지금 아니면 영영 못 한다.
+Finis coronat opus.|끝이 일을 완성한다.
+Gratias tibi ago pro omnibus.|모든 것에 감사해.
+Quod potui, feci.|할 수 있는 만큼 했다.
+Ad multos annos!|앞으로도 오래오래!
+Finis est initium novum.|끝은 새로운 시작이다.`;
+
+const NOTES = {
+  1:"salvē는 '건강하라'는 뜻의 동사 salvēre에서 온 인사라네. 여러 사람에게는 salvēte.",
+  3:"valē는 '강건하라'는 뜻. 로마인들은 편지 끝에도 Valē를 썼지.",
+  8:"agis는 agō(하다, 지내다)의 2인칭 단수. 직역하면 '너는 무엇을 하니?'",
+  13:"gratiās는 '감사'의 복수형, tibi는 '너에게'.",
+  32:"sum은 영어의 be동사(I am)에 해당하네. sum, es, est… 꼭 외워 두게.",
+  36:"직역하면 '나에게 이름은 마르쿠스이다'. 자네 이름을 넣어 말해 보게!",
+  39:"여성이라면 Coreāna sum. 라틴어 형용사는 성별에 따라 어미가 바뀐다네.",
+  53:"Latīnē는 '라틴어로'라는 부사. discō는 '나는 배운다'.",
+  91:"ūnus, duo, trēs — 영어 unit, duo, triple이 여기서 왔다네.",
+  109:"프랑스어 lundi, 이탈리아어 lunedì가 모두 diēs Lūnae에서 왔지.",
+  118:"베르길리우스의 시구 fugit irreparabile tempus에서 유래했다네.",
+  119:"호라티우스의 시에서 온 말. carpe는 '따다, 거두다'라는 명령형이지.",
+  120:"아우구스투스 황제가 즐겨 쓴 말이라고 수에토니우스가 전한다네.",
+  121:"amō, amās, amat… 라틴어 1변화 동사의 대표 선수일세.",
+  181:"Phoebus는 태양신 아폴로의 별칭. '고생 끝에 낙'이라는 뜻이지.",
+  211:"베르길리우스 《목가》의 구절. 원문은 Omnia vincit Amor.",
+  241:"중세에 생긴 격언이라네. 로마 가도가 얼마나 잘 닦였는지 보여 주지.",
+  270:"세네카의 말에서 왔다네. 남을 가르치면 자기가 더 많이 배우지.",
+  273:"세네카의 원문은 반대로 '우리는 삶이 아니라 학교를 위해 배운다'며 꾸짖는 말이었다네.",
+  288:"폼페이 유적의 현관 바닥 모자이크에 실제로 쓰여 있던 문구일세.",
+  305:"카이사르가 젤라 전투에서 이긴 뒤 원로원에 보낸 세 마디 보고라네.",
+  306:"데카르트의 말. 프랑스어 원문 Je pense, donc je suis를 라틴어로 옮긴 것이지.",
+  307:"카이사르가 루비콘강을 건너며 했다는 말이네.",
+  308:"셰익스피어 《율리우스 카이사르》에 나오는 대사로 유명하지.",
+  311:"개선장군 뒤에서 노예가 속삭였다는 이야기가 전한다네.",
+  320:"델포이 신전의 그리스어 격언 γνῶθι σεαυτόν을 라틴어로 옮긴 것.",
+  322:"호라티우스의 말. 칸트가 계몽주의의 표어로 삼았지.",
+  343:"중세 프랑스 격언을 라틴어로 옮긴 말이라네.",
+  344:"로마의 공식 표어. 지금도 로마시의 맨홀 뚜껑에 새겨져 있지."
+};
+
+const UNIT_START = [1,32,60,91,121,152,182,213,244,274,305,335];
+const UNITS = ["인사와 기본 표현","나와 너","가족과 사람","숫자와 시간","일상 동사","자연과 날씨","감정과 상태","음식·집·장소","학교와 배움","명령·부탁·질문","유명한 격언 I","격언과 생활 속 라틴어"];
+const PHRASES = RAW.trim().split("\n").map((line, i) => {
+  const [la, ko] = line.split("|");
+  const d = i + 1;
+  return { d, la: la.trim(), ko: ko.trim(), note: NOTES[d] || "", u: unitOf(d) };
+});
+function unitOf(d){ let u = 0; UNIT_START.forEach((s, i) => { if (d >= s) u = i; }); return u; }
+
+const LINES = {
+  welcome: ["Salve, amice! 나는 이 도서관을 지키는 안셀무스 수사라네.", "오늘부터 하루에 한 구절씩, 365일 동안 라틴어를 함께 읽어 보세."],
+  greet: ["Salve, amice! 다시 도서관에 왔구먼.", "어서 오게. 오늘도 촛불을 켜 두었다네.", "Salve! 양피지가 자네를 기다리고 있었지."],
+  intro: ["오늘은 이 구절을 함께 읽어 보자꾸나.", "자, 오늘의 표현일세. 천천히 소리 내어 읽어 보게.", "이 구절은 내가 아끼는 것 중 하나라네."],
+  past: ["지난 구절을 다시 펼쳐 보는구먼. Repetitio mater studiorum!", "복습하러 왔구먼. 기특하네."],
+  askMeaning: ["이 말은 무슨 뜻일까?", "자, 이 라틴어의 뜻을 골라 보게.", "기억나는가? 뜻을 골라 보세."],
+  askLatin: ["이 뜻을 라틴어로는 어떻게 말할까?", "라틴어로 옮기면 어느 것일까?", "자, 알맞은 라틴어를 골라 보게."],
+  arrange: ["단어를 순서대로 놓아 문장을 완성해 보게.", "필경사처럼 단어를 하나씩 옮겨 적어 보세."],
+  type: ["이번엔 직접 써 보게. 첫 글자는 내가 알려 주지.", "펜을 들어 보게. 한 단어면 충분하다네."],
+  right: ["Optime! 아주 잘했네.", "Bene! 훌륭하구먼.", "Recte! 정확하다네.", "Euge! 실력이 늘고 있어."],
+  wrong: ["허허, 괜찮다네. 다시 한번 해 보세.", "틀려도 괜찮네. Errare humanum est!", "조금 아쉽구먼. 다음엔 맞힐 걸세."],
+  retry: ["아까 그 문제를 다시 보세.", "한 번 더 해 보면 손에 익을 걸세."],
+  done: ["Bene fecisti! 오늘의 공부를 마쳤네.", "Optime! 오늘 양피지는 다 채웠구먼.", "훌륭해! 내일 또 이 도서관에서 만나세."],
+  already: ["이 구절은 이미 마쳤구먼. 다시 풀어 보겠나?", "벌써 끝낸 구절이로군. 한 번 더 복습해도 좋지."],
+  connect: ["이 표현은 자네들 말로는 이렇단다…", "다른 나라 말과 견주어 보니 이렇구먼."],
+  thinking: ["잠시만 기다리게… 먼 나라의 서고를 뒤져 보겠네."],
+  nokey: ["먼 나라의 서고를 열려면 열쇠(API 키)가 필요하다네. 열쇠를 맡겨 주겠나?"],
+  err: ["이런, 서고 문이 열리지 않는구먼. 양피지에 적힌 내용을 확인해 보게."]
+};
+
+/* ================= 저장소 ================= */
+const LS_KEY = "latin365", LS_API = "latin365.apiKey", LS_MODEL = "latin365.model";
+const DEFAULT_MODEL = "claude-sonnet-5";
+const GATEWAY_BASE = "https://api.baze.co/v1/gateway";
+const CHAT_URL = GATEWAY_BASE + "/chat/completions";
+
+function lsGet(k){ try { return localStorage.getItem(k); } catch (e) { return null; } }
+function lsSet(k, v){ try { localStorage.setItem(k, v); } catch (e) {} }
+function lsDel(k){ try { localStorage.removeItem(k); } catch (e) {} }
+
+let state = (() => { try { return JSON.parse(lsGet(LS_KEY)) || null; } catch (e) { return null; } })();
+const firstVisit = !state || !state.startDate;
+if (firstVisit) state = { startDate: ymd(new Date()) };
+state.studyLog = state.studyLog || [];
+state.completed = state.completed || {};
+state.streak = state.streak || 0;
+state.lastDoneDate = state.lastDoneDate || null;
+state.llmCache = state.llmCache || {};
+save();
+function save(){ lsSet(LS_KEY, JSON.stringify(state)); }
+const getKey = () => lsGet(LS_API) || "";
+const getModel = () => lsGet(LS_MODEL) || DEFAULT_MODEL;
+
+/* ================= 날짜 ================= */
+function ymd(d){ return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+function parseYmd(s){ const [y, m, d] = s.split("-").map(Number); return Date.UTC(y, m - 1, d); }
+function daysBetween(a, b){ return Math.round((parseYmd(b) - parseYmd(a)) / 86400000); }
+function todayStr(){ return ymd(new Date()); }
+function yesterdayStr(){ const d = new Date(); d.setDate(d.getDate() - 1); return ymd(d); }
+function todayN(){ return Math.max(1, daysBetween(state.startDate, todayStr()) + 1); }
+function phraseFor(n){ return PHRASES[(n - 1) % PHRASES.length]; }
+function cycleOf(n){ return Math.floor((n - 1) / PHRASES.length) + 1; }
+function currentStreak(){ return (state.lastDoneDate === todayStr() || state.lastDoneDate === yesterdayStr()) ? state.streak : 0; }
+
+/* ================= 유틸 ================= */
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+const pick = (a) => a[Math.floor(Math.random() * a.length)];
+function shuffle(a){ a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const words = (la) => la.split(/\s+/).filter(Boolean);
+const norm = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9\s]/g, "").replace(/\s+/g, " ").trim();
+const reducedMotion = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ================= 배경: 창문 빛줄기 속 먼지 ================= */
+(function motes(){
+  if (!reducedMotion) {
+    const m = $("#motes");
+    for (let i = 0; i < 16; i++) {
+      const s = document.createElement("i");
+      s.style.left = (38 + Math.random() * 24) + "%";
+      s.style.top = (45 + Math.random() * 45) + "%";
+      s.style.animationDelay = (-Math.random() * 14) + "s";
+      s.style.animationDuration = (10 + Math.random() * 8) + "s";
+      m.appendChild(s);
+    }
+  }
+})();
+
+/* ================= 수도사 NPC ================= */
+// 표정별 초상: img/ 폴더의 420px 정사각형 상반신 이미지. 없는 표정은 smile로 대체
+const MONK_IMG = {
+  smile: "img/smile.webp",
+  happy: "img/happy.webp",
+  encourage: "img/encourage.webp",
+  thinking: "img/thinking.webp",
+  celebrate: "img/celebrate.webp"
+};
+const portrait = $("#portrait"), monkImg = $("#monkImg");
+monkImg.src = MONK_IMG.smile;
+function setMood(m){
+  const FALLBACK = { celebrate: "happy", thinking: "smile", happy: "smile", encourage: "smile" };
+  let k = m; while (!MONK_IMG[k] && FALLBACK[k]) k = FALLBACK[k];
+  const src = MONK_IMG[k] || MONK_IMG.smile;
+  if (monkImg.getAttribute("src") !== src) {
+    monkImg.src = src;
+    portrait.classList.remove("swap"); void portrait.offsetWidth; portrait.classList.add("swap");
+  }
+  if (m === "happy" || m === "celebrate") { portrait.classList.remove("nod"); void portrait.offsetWidth; portrait.classList.add("nod"); }
+}
+function talk(on){ portrait.classList.toggle("talking", on && !reducedMotion); }
+
+/* ================= 대화창 ================= */
+const D = { text: $("#dtext"), next: $("#dnext"), choices: $("#choices"), body: $("#dbody"),
+  queue: [], typing: false, full: "", i: 0, timer: null, done: null, choiceResolve: null };
+
+function say(lines, mood = "smile", opts = {}){
+  return new Promise((res) => {
+    if (!opts.keep) clearChoices();
+    setMood(mood);
+    D.queue = (Array.isArray(lines) ? lines : [lines]).filter(Boolean);
+    D.done = res; D.waitEnd = !!opts.wait; D.pendingEnd = false;
+    nextLine();
+  });
+}
+function nextLine(){
+  if (!D.queue.length) { D.next.hidden = true; const r = D.done; D.done = null; r && r(); return; }
+  typeLine(D.queue.shift());
+}
+function typeLine(txt){
+  clearInterval(D.timer);
+  D.full = txt; D.i = 0; D.typing = true; D.next.hidden = true;
+  D.text.textContent = "";
+  if (reducedMotion) return finishTyping();
+  talk(true);
+  D.timer = setInterval(() => {
+    D.i += 1;
+    D.text.textContent = D.full.slice(0, D.i);
+    if (D.i >= D.full.length) finishTyping();
+  }, 26);
+}
+function finishTyping(){
+  clearInterval(D.timer); talk(false);
+  D.text.textContent = D.full; D.typing = false;
+  if (D.queue.length) D.next.hidden = false;
+  else if (D.waitEnd) { D.next.hidden = false; D.pendingEnd = true; }
+  else nextLine();
+}
+function advance(){
+  if (D.typing) finishTyping();
+  else if (D.queue.length) nextLine();
+  else if (D.pendingEnd) { D.pendingEnd = false; nextLine(); }
+}
+function clearChoices(){ D.choices.innerHTML = ""; D.choiceResolve = null; }
+function choices(labels, opts = {}){
+  return new Promise((res) => {
+    D.choices.innerHTML = "";
+    D.choiceResolve = res;
+    labels.forEach((label, i) => {
+      const b = document.createElement("button");
+      b.className = "choice" + (opts.latin ? " la" : "");
+      b.innerHTML = `<span class="k">${i + 1}</span><span class="t">${esc(label)}</span>`;
+      b.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (!D.choiceResolve) return;
+        const r = D.choiceResolve; D.choiceResolve = null;
+        D.choices.querySelectorAll(".choice").forEach((x) => x.disabled = true);
+        r(i);
+      });
+      D.choices.appendChild(b);
+    });
+  });
+}
+function markChoices(chosen, correct){
+  const bs = D.choices.querySelectorAll(".choice");
+  if (bs[correct]) bs[correct].classList.add("correct");
+  if (chosen !== correct && bs[chosen]) bs[chosen].classList.add("wrong");
+}
+D.body.addEventListener("click", advance);
+document.addEventListener("keydown", (e) => {
+  if (document.querySelector(".modal.open")) { if (e.key === "Escape") closeModals(); return; }
+  if (e.target.matches("input, textarea")) return;
+  if (e.key === " " || e.key === "Enter") {
+    if (D.typing || D.queue.length || D.pendingEnd) { e.preventDefault(); advance(); }
+  } else if (/^[1-9]$/.test(e.key)) {
+    const b = D.choices.querySelectorAll(".choice")[Number(e.key) - 1];
+    if (b && !b.disabled) b.click();
+  }
+});
+new ResizeObserver(() => {
+  document.documentElement.style.setProperty("--dlg-h", $("#dialog").offsetHeight + "px");
+}).observe($("#dialog"));
+
+/* ================= 상단/탭 ================= */
+function renderHeader(){
+  const n = todayN();
+  $("#streakChip").innerHTML = `🕯️ <b>${currentStreak()}</b>일 연속`;
+  const cyc = cycleOf(n);
+  $("#dayChip").innerHTML = `Dies <b>${phraseFor(n).d}</b> / 365${cyc > 1 ? ` · ${cyc}회차` : ""}`;
+  $("#studyChip").innerHTML = `학습 <b>${n}</b>일째 · 실제 학습 <b>${state.studyLog.length}</b>일`;
+}
+let activeN = null;
+function renderTabs(){
+  const n = todayN(), tabs = $("#tabs");
+  tabs.innerHTML = "";
+  [["그제", n - 2], ["어제", n - 1], ["오늘", n], ["내일", n + 1]].forEach(([label, dn]) => {
+    const b = document.createElement("button");
+    b.className = "tab" + (dn === activeN ? " active" : "");
+    const future = dn > n, none = dn < 1;
+    b.disabled = future || none;
+    const mark = state.completed[dn] ? ' <span class="done">✓</span>' : "";
+    b.innerHTML = future ? `${label} 🔒<small>잠김</small>` : none ? `${label}<small>—</small>` : `${label}${mark}<small>DIES ${phraseFor(dn).d}</small>`;
+    if (!b.disabled) b.addEventListener("click", () => openDay(dn));
+    tabs.appendChild(b);
+  });
+}
+function setProgress(i, total){ $("#prog").style.width = Math.round((i / total) * 100) + "%"; }
+
+/* ================= 음성 ================= */
+let voice = null;
+function pickVoice(){
+  if (!("speechSynthesis" in window)) return;
+  const vs = speechSynthesis.getVoices();
+  voice = vs.find((v) => /^la/i.test(v.lang)) || vs.find((v) => /^it/i.test(v.lang)) || null;
+  document.querySelectorAll(".speak").forEach((b) => { b.hidden = !voice; b.title = voice && !/^la/i.test(voice.lang) ? "근사 발음 (이탈리아어 음성)" : "발음 듣기"; });
+}
+if ("speechSynthesis" in window) { pickVoice(); speechSynthesis.addEventListener("voiceschanged", pickVoice); }
+function speak(text){
+  if (!voice) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text.replace(/\.\.\./g, ""));
+  u.voice = voice; u.lang = voice.lang; u.rate = 0.82;
+  speechSynthesis.speak(u);
+}
+function speakBtn(la){ return `<button class="speak" type="button" data-say="${esc(la)}" ${voice ? "" : "hidden"} title="${voice && !/^la/i.test(voice.lang) ? "근사 발음 (이탈리아어 음성)" : "발음 듣기"}" aria-label="발음 듣기">🔊</button>`; }
+document.addEventListener("click", (e) => { const b = e.target.closest(".speak"); if (b) speak(b.dataset.say); });
+
+/* ================= 카드 렌더 ================= */
+const card = $("#card");
+function kicker(n, p){ return `<div class="kicker"><span>Unitas ${p.u + 1} · ${esc(UNITS[p.u])}</span><span>Dies ${p.d}${cycleOf(n) > 1 ? " · " + cycleOf(n) + "회차" : ""}</span></div>`; }
+function latinHTML(la){ return `<span class="initial">${esc(la[0])}</span>${esc(la.slice(1))}`; }
+function setCard(html){ card.style.animation = "none"; void card.offsetWidth; card.style.animation = ""; card.innerHTML = html; }
+
+function renderIntro(n, p){
+  setCard(`${kicker(n, p)}
+    <div class="latin">${latinHTML(p.la)} ${speakBtn(p.la)}</div>
+    <p class="meaning">${esc(p.ko)}</p>
+    ${p.note ? `<div class="note">✒️ ${esc(p.note)}</div>` : ""}`);
+}
+function renderQuestion(n, p, label, big, isLatin){
+  setCard(`${kicker(n, p)}
+    <p class="prompt">${esc(label)}</p>
+    <div class="qbig ${isLatin ? "la" : ""}">${esc(big)} ${isLatin ? speakBtn(big) : ""}</div>`);
+}
+function showBanner(ok, answer, isLatin){
+  const div = document.createElement("div");
+  div.className = "banner " + (ok ? "ok" : "no");
+  div.innerHTML = ok ? "✓ 정답입니다!" : `✗ 정답: <span class="${isLatin ? "la" : ""}">${esc(answer)}</span>`;
+  card.appendChild(div);
+}
+
+/* ================= 레슨 흐름 ================= */
+let flowId = 0;
+const alive = (id) => id === flowId;
+
+function openDay(n, greetLines = []){
+  const id = ++flowId;
+  activeN = n;
+  renderTabs();
+  if (state.completed[n]) showSummary(n, id, [...greetLines, pick(LINES.already)], false);
+  else runLesson(n, id, greetLines);
+}
+
+async function runLesson(n, id, greetLines = []){
+  const p = phraseFor(n);
+  const last = words(p.la).length > 1 ? "arrange" : "type";
+  const queue = [{ t: "intro" }, { t: "mcq-ko" }, { t: "mcq-la" }, { t: last }];
+  for (let i = 0; i < queue.length; i++) {
+    if (!alive(id)) return;
+    setProgress(i, queue.length);
+    const st = queue[i];
+    if (st.t === "intro") { await stepIntro(n, p, id, greetLines); continue; }
+    const prefix = st.retry ? [pick(LINES.retry)] : [];
+    let ok;
+    if (st.t === "mcq-ko") ok = await stepMCQ(n, p, "ko", id, prefix);
+    else if (st.t === "mcq-la") ok = await stepMCQ(n, p, "la", id, prefix);
+    else if (st.t === "arrange") ok = await stepArrange(n, p, id, prefix);
+    else ok = await stepType(n, p, id, prefix);
+    if (!alive(id)) return;
+    if (!ok && !st.retry) queue.push({ t: st.t, retry: true });
+  }
+  setProgress(1, 1);
+  finishLesson(n, id);
+}
+
+async function stepIntro(n, p, id, greetLines){
+  renderIntro(n, p);
+  const isPast = n < todayN();
+  const lines = [...greetLines, isPast ? pick(LINES.past) : pick(LINES.intro), `"${p.la}" — ${p.ko}`];
+  await say(lines, "smile");
+  while (alive(id)) {
+    const c = await choices(["문제 풀러 가기 →", "🌍 익숙한 언어로 연결"]);
+    if (!alive(id)) return;
+    if (c === 0) return;
+    await connectLanguages(p, id);
+  }
+}
+
+function distractors(p, field, k = 3){
+  const seen = new Set([p[field]]);
+  const out = [];
+  const take = (list) => { for (const q of shuffle(list)) { if (out.length >= k) break; if (!seen.has(q[field])) { seen.add(q[field]); out.push(q); } } };
+  take(PHRASES.filter((q) => q.u === p.u && q !== p));
+  if (out.length < k) take(PHRASES);
+  return out;
+}
+
+async function stepMCQ(n, p, dir, id, prefix){
+  const field = dir === "ko" ? "ko" : "la";
+  if (dir === "ko") renderQuestion(n, p, "이 표현의 뜻은 무엇일까요?", p.la, true);
+  else renderQuestion(n, p, "라틴어로는 어떻게 말할까요?", p.ko, false);
+  await say([...prefix, pick(dir === "ko" ? LINES.askMeaning : LINES.askLatin)], "smile");
+  if (!alive(id)) return;
+  const opts = shuffle([p, ...distractors(p, field)]);
+  const i = await choices(opts.map((o) => o[field]), { latin: dir === "la" });
+  if (!alive(id)) return;
+  const ok = opts[i] === p;
+  markChoices(i, opts.indexOf(p));
+  return feedback(ok, p[field], dir === "la", id);
+}
+
+async function feedback(ok, answer, isLatin, id){
+  showBanner(ok, answer, isLatin);
+  if (ok) await say(pick(LINES.right), "happy", { keep: true });
+  else await say([pick(LINES.wrong), `정답은 "${answer}"였다네.`], "encourage", { keep: true });
+  if (!alive(id)) return;
+  await choices(["계속 →"]);
+  if (!alive(id)) return;
+  return ok;
+}
+
+async function stepArrange(n, p, id, prefix){
+  const target = words(p.la);
+  const targetSet = new Set(target.map(norm));
+  const extras = [];
+  for (const q of shuffle(PHRASES.filter((q) => q.u === p.u && q !== p))) {
+    for (const w of words(q.la)) { if (extras.length < 2 && !targetSet.has(norm(w)) && !extras.some((x) => norm(x) === norm(w))) extras.push(w); }
+    if (extras.length >= 2) break;
+  }
+  const tiles = shuffle([...target, ...extras]).map((w, i) => ({ w, i }));
+  const picked = [];
+  setCard(`${kicker(n, p)}
+    <p class="prompt">이 뜻을 라틴어로 옮겨 보세요</p>
+    <div class="qbig">${esc(p.ko)}</div>
+    <div class="answer" id="answer"></div>
+    <div class="bank" id="bank"></div>`);
+  const answerEl = $("#answer"), bankEl = $("#bank");
+  let locked = false;
+  const draw = () => {
+    answerEl.innerHTML = ""; bankEl.innerHTML = "";
+    picked.forEach((t, k) => {
+      const b = document.createElement("button");
+      b.className = "tile"; b.textContent = t.w; b.disabled = locked;
+      b.onclick = () => { if (locked) return; picked.splice(k, 1); draw(); };
+      answerEl.appendChild(b);
+    });
+    tiles.forEach((t) => {
+      const b = document.createElement("button");
+      const used = picked.includes(t);
+      b.className = "tile" + (used ? " used" : ""); b.textContent = t.w; b.disabled = locked || used;
+      b.onclick = () => { if (locked || picked.includes(t)) return; picked.push(t); draw(); };
+      bankEl.appendChild(b);
+    });
+  };
+  draw();
+  await say([...prefix, pick(LINES.arrange)], "smile");
+  while (alive(id)) {
+    await choices(["확인하기"]);
+    if (!alive(id)) return;
+    if (picked.length) break;
+    await say("먼저 단어를 골라 옮겨 적어 보게.", "encourage");
+  }
+  if (!alive(id)) return;
+  locked = true; draw();
+  const ok = norm(picked.map((t) => t.w).join(" ")) === norm(p.la);
+  return feedback(ok, p.la, true, id);
+}
+
+async function stepType(n, p, id, prefix){
+  const plain = p.la.replace(/[^A-Za-z]/g, "");
+  setCard(`${kicker(n, p)}
+    <p class="prompt">이 뜻을 라틴어로 써 보세요</p>
+    <div class="qbig">${esc(p.ko)}</div>
+    <input class="typein" id="typein" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${esc(plain[0])}${"_".repeat(Math.max(0, plain.length - 1))}" aria-label="라틴어 입력">`);
+  const input = $("#typein");
+  input.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); const b = D.choices.querySelector(".choice"); b && !b.disabled && b.click(); } });
+  await say([...prefix, pick(LINES.type)], "smile");
+  if (!alive(id)) return;
+  input.focus({ preventScroll: true });
+  while (alive(id)) {
+    await choices(["확인하기"]);
+    if (!alive(id)) return;
+    if (input.value.trim()) break;
+    await say("한 글자라도 적어 보게나.", "encourage");
+    input.focus({ preventScroll: true });
+  }
+  if (!alive(id)) return;
+  input.disabled = true;
+  const ok = norm(input.value) === norm(p.la);
+  return feedback(ok, p.la, true, id);
+}
+
+function finishLesson(n, id){
+  const t = todayStr();
+  state.completed[n] = true;
+  if (!state.studyLog.includes(t)) state.studyLog.push(t);
+  if (n === todayN() && state.lastDoneDate !== t) {
+    state.streak = state.lastDoneDate === yesterdayStr() ? (state.streak || 0) + 1 : 1;
+    state.lastDoneDate = t;
+  }
+  save();
+  renderHeader(); renderTabs();
+  showSummary(n, id, [pick(LINES.done)], true);
+}
+
+async function showSummary(n, id, lines, celebrate){
+  const p = phraseFor(n);
+  setProgress(1, 1);
+  const prev = [n - 1, n - 2].filter((x) => x >= 1).map((x) => ({ x, q: phraseFor(x) }));
+  setCard(`${celebrate ? `<div class="sparks">${Array.from({ length: 18 }, (_, i) => `<i style="left:${10 + Math.random() * 80}%;--dx:${(Math.random() * 160 - 80).toFixed(0)}px;--dy:${(-Math.random() * 120 - 20).toFixed(0)}px;animation-delay:${(i * 0.04).toFixed(2)}s"></i>`).join("")}</div>` : ""}
+    ${kicker(n, p)}
+    <div class="done-title">${celebrate ? "Bene fecisti!" : "Iam perfectum ✓"}</div>
+    <p class="done-sub">${celebrate ? "오늘의 구절을 익혔습니다" : "이미 마친 구절입니다"}</p>
+    <div class="recap"><div class="latin">${latinHTML(p.la)} ${speakBtn(p.la)}</div><p class="meaning">${esc(p.ko)}</p></div>
+    <div class="statrow">
+      <div class="stat"><b>${currentStreak()}</b><span>연속 학습</span></div>
+      <div class="stat"><b>${todayN()}</b><span>학습 N일째</span></div>
+      <div class="stat"><b>${state.studyLog.length}</b><span>실제 학습한 날</span></div>
+    </div>
+    ${prev.length ? `<div class="review"><h4>Repetitio · 지난 구절 복습</h4><div class="minis">${prev.map(({ x, q }) => `<div class="mini"><small>DIES ${q.d}</small><div class="la">${esc(q.la)}</div><div class="ko">${esc(q.ko)}</div></div>`).join("")}</div></div>` : ""}`);
+  await say(lines, celebrate ? "celebrate" : "smile");
+  while (alive(id)) {
+    const opts = ["🌍 익숙한 언어로 연결", "↺ 다시 풀기"];
+    if (n !== todayN()) opts.push("오늘의 구절로 →");
+    const c = await choices(opts);
+    if (!alive(id)) return;
+    if (c === 0) await connectLanguages(p, id);
+    else if (c === 1) { const nid = ++flowId; runLesson(n, nid); return; }
+    else { openDay(todayN()); return; }
+  }
+}
+
+/* ================= LLM: 익숙한 언어로 연결 ================= */
+const SYSTEM_PROMPT = `너는 한국인 라틴어 입문자를 돕는 친절한 언어 선생님이다. 주어진 라틴어 표현을 학습자에게 익숙한 언어와 연결해 준다.
+반드시 아래 형식의 JSON 객체 하나만 출력하라. 다른 설명이나 코드 펜스는 쓰지 마라. ko, meaning, tip 같은 설명은 모두 한국어로 쓴다. 확실하지 않은 어원은 넣지 마라.
+{
+  "english": "자연스러운 영어 대응 표현",
+  "similar": [{"lang": "언어 이름(한국어)", "text": "그 언어의 표현", "ko": "한국어 뜻"}],
+  "koreanIdiom": "비슷한 한국어 표현이나 속담 (없으면 빈 문자열)",
+  "cognates": [{"word": "단어", "lang": "언어 이름(한국어)", "meaning": "한국어 뜻과 라틴어와의 연결"}],
+  "tip": "외우기 쉬운 한 줄 팁"
+}
+similar에는 스페인어·프랑스어·이탈리아어 등 로망스어 표현을 2~3개, cognates에는 같은 라틴어 어근에서 온 영어 등의 단어를 2~4개 넣어라.`;
+
+async function callLLM(system, user, { maxTokens = 800, key = getKey(), model = getModel() } = {}){
+  if (!key) throw new Error("API 키가 설정되지 않았습니다.");
+  let res;
+  try {
+    res = await fetch(CHAT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Authorization": "Bearer " + key },
+      body: JSON.stringify({ model, max_tokens: maxTokens, messages: [{ role: "system", content: system }, { role: "user", content: user }] })
+    });
+  } catch (e) {
+    throw new Error("게이트웨이에 연결하지 못했습니다. 네트워크 문제이거나 게이트웨이가 브라우저의 직접 호출(CORS)을 허용하지 않는 경우입니다. file:// 대신 `python3 -m http.server`로 페이지를 띄워 보거나, 게이트웨이 관리자에게 CORS 허용을 요청하세요.");
+  }
+  const raw = await res.text();
+  let json = null;
+  try { json = JSON.parse(raw); } catch (e) {}
+  if (res.status === 401 || res.status === 403) throw new Error(`API 키를 확인해 주세요. (HTTP ${res.status})`);
+  if (!res.ok) throw new Error(`게이트웨이 오류 HTTP ${res.status}: ${(json && json.error && (json.error.message || json.error)) || raw.slice(0, 200)}`);
+  const content = json && json.choices && json.choices[0] && json.choices[0].message && json.choices[0].message.content;
+  if (typeof content !== "string") throw new Error("응답 형식을 해석하지 못했습니다: " + raw.slice(0, 200));
+  return content;
+}
+
+function parseLLM(txt){
+  let t = txt.trim().replace(/^```(?:json)?\s*/i, "").replace(/```\s*$/, "");
+  const a = t.indexOf("{"), b = t.lastIndexOf("}");
+  if (a >= 0 && b > a) t = t.slice(a, b + 1);
+  try { const o = JSON.parse(t); return o && typeof o === "object" ? o : null; } catch (e) { return null; }
+}
+
+function ensurePanel(){
+  let panel = card.querySelector(".llm");
+  if (!panel) { panel = document.createElement("div"); panel.className = "llm"; card.appendChild(panel); }
+  return panel;
+}
+function renderLLM(panel, data, rawText){
+  const head = `<h4>🌍 익숙한 언어로 연결</h4>`;
+  if (!data) { panel.innerHTML = head + `<pre>${esc(rawText)}</pre>`; return; }
+  const arr = (x) => Array.isArray(x) ? x : [];
+  panel.innerHTML = head +
+    (data.english ? `<div class="row"><div class="lbl">ENGLISH</div><div class="val em">${esc(data.english)}</div></div>` : "") +
+    (arr(data.similar).length ? `<div class="row"><div class="lbl">다른 언어의 비슷한 표현</div><ul>${arr(data.similar).map((s) => `<li><b>${esc(s.lang)}</b> · <span class="em">${esc(s.text)}</span>${s.ko ? ` — ${esc(s.ko)}` : ""}</li>`).join("")}</ul></div>` : "") +
+    (data.koreanIdiom ? `<div class="row"><div class="lbl">한국어로는</div><div class="val">${esc(data.koreanIdiom)}</div></div>` : "") +
+    (arr(data.cognates).length ? `<div class="row"><div class="lbl">같은 뿌리의 단어</div><ul>${arr(data.cognates).map((c) => `<li><span class="em">${esc(c.word)}</span> <small>(${esc(c.lang)})</small> — ${esc(c.meaning)}</li>`).join("")}</ul></div>` : "") +
+    (data.tip ? `<div class="row tip">💡 ${esc(data.tip)}</div>` : "");
+}
+
+async function connectLanguages(p, id){
+  const panel = ensurePanel();
+  const cached = state.llmCache[p.d];
+  if (cached && cached.la === p.la) {
+    renderLLM(panel, cached.data, "");
+    panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    await say(pick(LINES.connect), "happy");
+    return;
+  }
+  if (!getKey()) {
+    panel.remove();
+    await say(LINES.nokey, "encourage");
+    openKeyModal();
+    return;
+  }
+  panel.innerHTML = `<h4>🌍 익숙한 언어로 연결</h4><p><span class="quill">🪶</span> 수사가 먼 나라의 서고에서 필사하는 중…</p>`;
+  panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  say(LINES.thinking, "thinking");
+  try {
+    const txt = await callLLM(SYSTEM_PROMPT, `라틴어 표현: ${p.la}\n한국어 뜻: ${p.ko}`);
+    if (!alive(id)) return;
+    const data = parseLLM(txt);
+    if (data) { state.llmCache[p.d] = { la: p.la, data }; save(); }
+    renderLLM(panel, data, txt);
+    panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    await say(pick(LINES.connect), "happy");
+  } catch (e) {
+    if (!alive(id)) return;
+    panel.innerHTML = `<h4>🌍 익숙한 언어로 연결</h4><p class="err">${esc(e.message)}</p>`;
+    await say(LINES.err, "encourage");
+  }
+}
+
+/* ================= 모달 ================= */
+function openModal(m){ m.classList.add("open"); }
+function closeModals(){ document.querySelectorAll(".modal.open").forEach((m) => m.classList.remove("open")); }
+document.querySelectorAll(".modal").forEach((m) => {
+  m.addEventListener("click", (e) => { if (e.target === m || e.target.closest("[data-close]")) closeModals(); });
+});
+
+function openKeyModal(){
+  $("#inKey").value = getKey();
+  $("#inModel").value = getModel();
+  $("#inStart").value = state.startDate;
+  $("#testOut").textContent = ""; $("#testOut").className = "testout";
+  $("#recordInfo").textContent = `시작일 ${state.startDate} · 학습 ${todayN()}일째 · 실제 학습 ${state.studyLog.length}일 · 연속 ${currentStreak()}일`;
+  openModal($("#keyModal"));
+  setTimeout(() => $("#inKey").focus(), 50);
+}
+$("#btnKey").addEventListener("click", openKeyModal);
+$("#btnEye").addEventListener("click", () => { const i = $("#inKey"); i.type = i.type === "password" ? "text" : "password"; });
+$("#btnSaveKey").addEventListener("click", () => {
+  const k = $("#inKey").value.trim(), m = $("#inModel").value.trim();
+  k ? lsSet(LS_API, k) : lsDel(LS_API);
+  m && m !== DEFAULT_MODEL ? lsSet(LS_MODEL, m) : lsDel(LS_MODEL);
+  const out = $("#testOut"); out.className = "testout ok"; out.textContent = k ? "저장했습니다." : "키가 비어 있어 삭제했습니다.";
+});
+$("#btnDelKey").addEventListener("click", () => {
+  lsDel(LS_API); $("#inKey").value = "";
+  const out = $("#testOut"); out.className = "testout ok"; out.textContent = "키를 삭제했습니다.";
+});
+$("#btnTestKey").addEventListener("click", async () => {
+  const out = $("#testOut");
+  const key = $("#inKey").value.trim(), model = $("#inModel").value.trim() || DEFAULT_MODEL;
+  if (!key) { out.className = "testout no"; out.textContent = "키를 먼저 입력하세요."; return; }
+  out.className = "testout"; out.textContent = "연결 중…";
+  try {
+    const r = await callLLM("Reply with exactly one word: Salve", "ping", { maxTokens: 20, key, model });
+    out.className = "testout ok"; out.textContent = "✓ 연결 성공 — 응답: " + r.trim().slice(0, 80);
+  } catch (e) { out.className = "testout no"; out.textContent = "✗ " + e.message; }
+});
+$("#btnStart").addEventListener("click", () => {
+  const v = $("#inStart").value;
+  if (!v) return;
+  if (daysBetween(v, todayStr()) < 0) { alert("시작일은 오늘 이후일 수 없습니다."); return; }
+  state.startDate = v; save();
+  closeModals(); renderHeader(); openDay(todayN());
+});
+$("#btnReset").addEventListener("click", () => {
+  if (!confirm("진행 기록을 모두 지우고 오늘을 1일차로 다시 시작할까요? (API 키는 유지됩니다)")) return;
+  state = { startDate: todayStr(), studyLog: [], completed: {}, streak: 0, lastDoneDate: null, llmCache: state.llmCache };
+  save(); closeModals(); renderHeader(); openDay(1, LINES.welcome);
+});
+
+$("#btnList").addEventListener("click", () => {
+  const n = todayN();
+  const upto = n >= PHRASES.length ? PHRASES.length : n;
+  const done = new Set(Object.keys(state.completed).filter((k) => state.completed[k]).map((k) => phraseFor(Number(k)).d));
+  $("#list").innerHTML = PHRASES.slice(0, upto).reverse().map((p) =>
+    `<li><span class="d">DIES ${p.d}</span><span><span class="la">${esc(p.la)}</span><span class="ko">${esc(p.ko)}</span></span><span class="ck">${done.has(p.d) ? "✓" : ""}</span></li>`).join("");
+  openModal($("#listModal"));
+});
+
+/* ================= 시작 ================= */
+renderHeader();
+const n0 = todayN();
+openDay(n0, firstVisit ? LINES.welcome : [pick(LINES.greet) + ` 오늘로 학습 ${n0}일째일세.`]);
+</script>
+</body>
+</html>
